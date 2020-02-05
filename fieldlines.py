@@ -3,33 +3,30 @@ import matplotlib as mpl
 import scipy
 from scipy import spatial
 
+def punctualFieldIntensity(point, chargesInputList):
+    value = point[0]*chargesInputList[0]+point[1]*chargesInputList[1]
+    return value
 
-class punctualFieldIntensity:
-
-    def __init__(self, point, chargesInputList):
-        self.value= point #compute here
-
-    def getValue(self):
-        return self.value
-
-class electricField(punctualFieldIntensity):
+class electricField:
     def __init__(self, space, chargesInputList):
-        self.charges = chargesInputList
 
+        self.charges = chargesInputList
+        self.space = space
         self.values = []
-        for points in space:
-            self.values.append(punctualFieldIntensity(points, chargesInputList).getValue())
+
+        for rows in self.space:
+            for points in rows:
+                self.values.append(punctualFieldIntensity(points, self.charges))
 
     def getValues(self):
         return self.values
 
-
-
+"""""
 class charge:
     def __init__(self, val, pos):
         self.val = val
         self.pos = pos
-
+"""""
 
 print(electricField([1,3,6], 5).getValues())
 

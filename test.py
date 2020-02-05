@@ -1,7 +1,8 @@
-def curca(x, y=[]):
-    if not y:
-        print('def y')
-    else: 
-        print('done')
+x=[[[1,2],[2,3],[3,4]],
+   [[4,5],[5,6],[6,7]]]
+y=[[],[]]
+for rows in x:
+    for points in rows:
+        y=[rows, points]
 
-curca(1)
+print(y)
