@@ -18,7 +18,7 @@ def pointsAngle(P, Pv):
 def punctualFieldIntensity(point, chargesInputList):
 
     absValue = 0
-    value = [0,0]
+    value = [0,0,0]
     k=9*10**9
 
     for i in range(len(chargesInputList)):
@@ -30,8 +30,9 @@ def punctualFieldIntensity(point, chargesInputList):
 
         value[0] += absValue*np.cos(angle)
         value[1] += absValue*np.sin(angle)
+        value[2] += round(absValue, 3)
 
-    return value #must be a vector (2 elements array)
+    return value#must be a vector (2 elements array)
 
 class electricField:
     
@@ -47,7 +48,9 @@ class electricField:
 
         for i in range(len(self.space)):
             for j in range(len(self.space[0])):
-                self.values[i][j] = punctualFieldIntensity(self.space[i][j], self.charges)
+                for k in range(len(self.charges)):
+                    if self.space[i][j] != self.charges[k].pos:
+                        self.values[i][j] = punctualFieldIntensity(self.space[i][j], self.charges)
 
     def getField(self):
         return [self.space, self.values]
